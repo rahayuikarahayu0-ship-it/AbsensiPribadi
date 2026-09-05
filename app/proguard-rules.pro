@@ -1,0 +1,2 @@
+-keep class com.example.absensipribadi.** { *; }
+-keep class androidx.room.** { *; }

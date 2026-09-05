@@ -1,0 +1,7 @@
+<resources>
+<style name="Theme.AbsensiPribadi" parent="android:style/Theme.Material.Light.NoActionBar">
+    <item name="android:fontFamily">sans</item>
+    <item name="android:statusBarColor">#315EFB</item>
+    <item name="android:navigationBarColor">#F5F7FB</item>
+</style>
+</resources>
