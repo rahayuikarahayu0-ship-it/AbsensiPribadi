@@ -3,5 +3,5 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories { google(); mavenCentral() }
 }
-rootProject.name = "AbsensiPribadiPro"
+rootProject.name = "AbsensiPribadiPro2_3"
 include(":app")
