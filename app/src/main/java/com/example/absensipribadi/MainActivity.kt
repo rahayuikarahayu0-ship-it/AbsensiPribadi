@@ -103,7 +103,12 @@ fun Home(c:Context,db:AppDb){
   }}
   Button(enabled=!hasIn,onClick={type="IN";permissions(c,launcher)},Modifier.fillMaxWidth().height(54.dp)){Text("📷 ABSEN MASUK • SELFIE + GPS")}
   Button(enabled=hasIn&&!hasOut,onClick={type="OUT";permissions(c,launcher)},Modifier.fillMaxWidth().height(54.dp)){Text("📷 ABSEN PULANG • SELFIE + GPS")}
-  OutlinedTextField(note,{note=it},label={Text("Catatan")},Modifier.fillMaxWidth())
+  OutlinedTextField(
+    value = note,
+    onValueChange = { note = it },
+    modifier = Modifier.fillMaxWidth(),
+    label = { Text("Catatan") }
+)
  }
 }
 
