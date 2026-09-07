@@ -52,8 +52,6 @@ class MainActivity:ComponentActivity(){
   if(err)Text("PIN salah",color=MaterialTheme.colorScheme.error)
  }
 }
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(c:Context,db:AppDb){
     var tab by remember{mutableIntStateOf(0)}
@@ -89,7 +87,6 @@ fun Home(c:Context,db:AppDb){
         }
     }
 }
-
 @Composable fun Dashboard(c:Context,db:AppDb,list:List<Attendance>,scope:CoroutineScope,m:Modifier){
  val day=SimpleDateFormat("yyyy-MM-dd",Locale.US).format(Date());val today=list.filter{it.date==day}
  val hasIn=today.any{it.type=="IN"};val hasOut=today.any{it.type=="OUT"};var note by remember{mutableStateOf("")};var type by remember{mutableStateOf("")}
