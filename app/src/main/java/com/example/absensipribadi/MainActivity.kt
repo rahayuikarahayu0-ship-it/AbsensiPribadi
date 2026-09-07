@@ -53,9 +53,10 @@ class MainActivity:ComponentActivity(){
  }
 }
 
-@Composable fun Home(c:Context,db:AppDb){
- var tab by remember{mutableIntStateOf(0)};val list by db.dao().observe().collectAsState(emptyList());val scope=rememberCoroutineScope()
- var tab by remember{mutableIntStateOf(0)}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Home(c:Context,db:AppDb){
+    var tab by remember{mutableIntStateOf(0)}
     val list by db.dao().observe().collectAsState(emptyList())
     val scope=rememberCoroutineScope()
 
@@ -80,6 +81,14 @@ class MainActivity:ComponentActivity(){
             }
         }
     ){p->
+        when(tab){
+            0->Dashboard(c,db,list,scope,Modifier.padding(p))
+            1->History(list,Modifier.padding(p))
+            2->Reports(c,db,list,scope,Modifier.padding(p))
+            else->Settings(c,db,scope,Modifier.padding(p))
+        }
+    }
+}
 
 @Composable fun Dashboard(c:Context,db:AppDb,list:List<Attendance>,scope:CoroutineScope,m:Modifier){
  val day=SimpleDateFormat("yyyy-MM-dd",Locale.US).format(Date());val today=list.filter{it.date==day}
