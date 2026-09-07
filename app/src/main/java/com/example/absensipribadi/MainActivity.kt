@@ -52,6 +52,7 @@ class MainActivity:ComponentActivity(){
   if(err)Text("PIN salah",color=MaterialTheme.colorScheme.error)
  }
 }
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(c:Context,db:AppDb){
     var tab by remember{mutableIntStateOf(0)}
@@ -101,8 +102,20 @@ fun Home(c:Context,db:AppDb){
    Text(SimpleDateFormat("HH:mm:ss",Locale.US).format(Date()),style=MaterialTheme.typography.displaySmall)
    Text(if(!hasIn)"Belum absen masuk" else if(!hasOut)"Sedang bekerja • ${today.first{it.type=="IN"}.time}" else "Absensi hari ini selesai")
   }}
-  Button(enabled=!hasIn,onClick={type="IN";permissions(c,launcher)},Modifier.fillMaxWidth().height(54.dp)){Text("📷 ABSEN MASUK • SELFIE + GPS")}
-  Button(enabled=hasIn&&!hasOut,onClick={type="OUT";permissions(c,launcher)},Modifier.fillMaxWidth().height(54.dp)){Text("📷 ABSEN PULANG • SELFIE + GPS")}
+  Button(
+    onClick = { type = "IN"; permissions(c, launcher) },
+    modifier = Modifier.fillMaxWidth().height(54.dp),
+    enabled = !hasIn
+) {
+    Text("📷 ABSEN MASUK • SELFIE + GPS")
+}
+Button(
+    onClick = { type = "OUT"; permissions(c, launcher) },
+    modifier = Modifier.fillMaxWidth().height(54.dp),
+    enabled = hasIn && !hasOut
+) {
+    Text("📷 ABSEN PULANG • SELFIE + GPS")
+}
   OutlinedTextField(
     value = note,
     onValueChange = { note = it },
