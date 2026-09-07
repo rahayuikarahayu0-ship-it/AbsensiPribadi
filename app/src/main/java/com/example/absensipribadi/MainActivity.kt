@@ -55,15 +55,31 @@ class MainActivity:ComponentActivity(){
 
 @Composable fun Home(c:Context,db:AppDb){
  var tab by remember{mutableIntStateOf(0)};val list by db.dao().observe().collectAsState(emptyList());val scope=rememberCoroutineScope()
- Scaffold(topBar={TopAppBar(title={Text("Absensi Pribadi Pro")})},bottomBar={NavigationBar{
-  listOf("Beranda","Riwayat","Laporan","Pengaturan").forEachIndexed{i,n->NavigationBarItem(tab==i,{tab=i},{},label={Text(n)})}
- }}){p->when(tab){
- 0->Dashboard(c,db,list,scope,Modifier.padding(p))
- 1->History(list,Modifier.padding(p))
- 2->Reports(c,db,list,scope,Modifier.padding(p))
- else->Settings(c,db,scope,Modifier.padding(p))
- }}
-}
+ var tab by remember{mutableIntStateOf(0)}
+    val list by db.dao().observe().collectAsState(emptyList())
+    val scope=rememberCoroutineScope()
+
+    val labels=listOf("Beranda","Riwayat","Laporan","Pengaturan")
+
+    Scaffold(
+        topBar={
+            TopAppBar(
+                title={Text("Absensi Pribadi Pro")}
+            )
+        },
+        bottomBar={
+            NavigationBar{
+                for(i in labels.indices){
+                    NavigationBarItem(
+                        selected=tab==i,
+                        onClick={tab=i},
+                        icon={},
+                        label={Text(labels[i])}
+                    )
+                }
+            }
+        }
+    ){p->
 
 @Composable fun Dashboard(c:Context,db:AppDb,list:List<Attendance>,scope:CoroutineScope,m:Modifier){
  val day=SimpleDateFormat("yyyy-MM-dd",Locale.US).format(Date());val today=list.filter{it.date==day}
